@@ -25,6 +25,17 @@ If you're not sure what models are available or what properties they have, click
 
 ## Screenshots
 ![image](https://user-images.githubusercontent.com/79558246/173201642-446feb78-1a99-4302-ba95-9424ae442ac8.png)
+
+*Ooo, what could it be?*
+
 ![image](https://user-images.githubusercontent.com/79558246/173201650-4a738335-14b4-4906-9370-230fdf0cd90b.png)
+
+*The gallery.*
+
 ![image](https://user-images.githubusercontent.com/79558246/173201661-5811a052-74bc-4ede-88e5-e8cebff85874.png)
+
+*Good job!*
+
 ![image](https://user-images.githubusercontent.com/79558246/173201696-1ee82f7c-4913-44a9-a80a-ca4fd16e664c.png)
+
+*Better luck next time...*
