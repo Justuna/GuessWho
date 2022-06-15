@@ -39,20 +39,15 @@ public class GalleryModel : MonoBehaviour, HasToolTip
         ToolTipDetector3D tt = wrapper.AddComponent<ToolTipDetector3D>();
 
         Names = new List<string>();
-        string value = "";
-        if (entry.getAdditionalData() != null && entry.getAdditionalData().TryGetValue("name", out value))
-        {
-            string allNames = value;
-            Debug.Log(allNames);
-            foreach (string name in allNames.Split(' ')) Names.Add(name.Replace('_', ' '));
-        }
+        string allNames = ((ModelHologram)entry.getHologram()).getFilename().Split('.')[0];
+        foreach (string name in allNames.Split(' ')) Names.Add(name.Replace('_', ' '));
 
         Properties = new List<string>();
-        value = "";
+        string value;
         if (entry.getAdditionalData() != null && entry.getAdditionalData().TryGetValue("guesswho", out value))
         {
             Debug.Log(value);
-            Properties.AddRange(value.Split(' '));
+            foreach (string prop in value.Split(' ')) Properties.Add(prop.Replace('_', ' '));
         }
 
         GalleryManager.Instance.AddModel(this);

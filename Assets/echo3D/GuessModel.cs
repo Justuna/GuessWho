@@ -24,18 +24,15 @@ public class GuessModel : MonoBehaviour
         this.gameObject.AddComponent<RemoteTransformations>().entry = entry;
 
         List<string> names = new List<string>();
-        string value = "";
-        if (entry.getAdditionalData() != null && entry.getAdditionalData().TryGetValue("name", out value))
-        {
-            string allNames = value;
-            foreach (string name in allNames.Split(' ')) names.Add(name.Replace('_', ' '));
-        }
+        string allNames = ((ModelHologram)entry.getHologram()).getFilename().Split('.')[0];
+        foreach (string name in allNames.Split(' ')) names.Add(name.Replace('_', ' '));
 
         List<string> properties = new List<string>();
-        value = "";
+        string value;
         if (entry.getAdditionalData() != null && entry.getAdditionalData().TryGetValue("guesswho", out value))
         {
-            properties.AddRange(value.Split(' '));
+            Debug.Log(value);
+            foreach (string prop in value.Split(' ')) properties.Add(prop.Replace('_', ' '));
         }
 
         GameManager.Instance.Setup(names, properties, gameObject);

@@ -57,7 +57,7 @@ public class LoadGallery : MonoBehaviour
         if (!string.IsNullOrWhiteSpace(Tags))
         {
             // append tags request paramenter to query if Tags is filled
-            serverURL += "&tags=" + Tags.Replace(" ", "");
+            serverURL += "&data=" + Tags.Replace(" ", "");
             Debug.Log(serverURL);
         }
 
