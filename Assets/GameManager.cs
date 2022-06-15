@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.EventSystems;
 
 public class GameManager : MonoBehaviour
 {
@@ -78,6 +79,8 @@ public class GameManager : MonoBehaviour
             }
 
             _guesses--;
+            EventSystem.current.SetSelectedGameObject(input.gameObject);
+            input.ActivateInputField();
         }
     }
 
@@ -98,9 +101,11 @@ public class GameManager : MonoBehaviour
 
         if (victory)
         {
+            victoryMessage.gameObject.SetActive(true);
             victoryMessage.text = "Congratulations! The answer was: " + _names[0];
         }
         else {
+            defeatMessage.gameObject.SetActive(true);
             defeatMessage.text = "Sorry! The answer was: " + _names[0];
         }
         if (_names.Count > 1) {
@@ -110,6 +115,7 @@ public class GameManager : MonoBehaviour
                 msg += _names[i] + ", ";
             }
             msg += _names[_names.Count - 1];
+            extraMessage.gameObject.SetActive(true);
             extraMessage.text = msg;
         }
     }
