@@ -17,10 +17,9 @@ If you're not sure what models are available or what properties they have, click
 1. After downloading the project, open up the GuessWhoProject folder in Unity as a project.
 2. If the SampleScene scene is not already open, open it.
 3. In the GameManager object, replace any fields named API key with the API key with your own.
-4. In the echo3D console, add whatever models you want to play the game with. Make sure they have the following keys:
-   - tags: guesswho ***(This tells the game that this model is in play)***
-   - name: ***This can be whatever name or names (if it has multiple aliases) you want! Names should be separated by spaces; names with spaces should use underscores.***
-   - guesswho: ***This should be the list of properties (separated by spaces) that the model has. Things like color, type of object, etc.***
+4. In the echo3D console, add whatever models you want to play the game with. Make sure they have the following properties:
+   - filename: ***The filename will be used as the name for guessing the model. If the model has multiple aliases, they should be separated as spaces. If a name has a space in it, it should have a underscore where the space would be
+   - guesswho: ***There should be a "guesswho" key, where the value is the list of properties (separated by spaces) that the model has. Things like color, type of object, etc. Any model without this key will not load. Again, properties with spaces should be separated by underscores.***
 5. Press Play to try it out in the editor! It may take a little bit of time to load, though.
 
 ## Screenshots
