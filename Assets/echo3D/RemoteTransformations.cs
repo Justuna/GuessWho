@@ -6,11 +6,8 @@
 * https://www.echo3D.co/terms, or another agreement                       *
 * between echoAR, Inc. and you, your company or other organization.       *
 ***************************************************************************/
-using System.Collections;
-using UnityEngine;
-using UnityEngine.Networking;
-using SimpleJSON;
 using System.Globalization;
+using UnityEngine;
 using UnityEngine.Video;
 
 public class RemoteTransformations : MonoBehaviour
