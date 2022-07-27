@@ -5,7 +5,7 @@
 * Use subject to the terms of the Terms of Service available at           *
 * https://www.echo3D.co/terms, or another agreement                       *
 * between echoAR, Inc. and you, your company or other organization.       *
-***************************************************************************/
+***************************************************************************//*
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -124,3 +124,4 @@ public class GalleryModel : MonoBehaviour, HasToolTip
         ToolTip.HideTooltip();
     }
 }
+*/

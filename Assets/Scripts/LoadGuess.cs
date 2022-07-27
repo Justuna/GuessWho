@@ -5,7 +5,7 @@
 * Use subject to the terms of the Terms of Service available at 	      *
 * https://www.echo3D.co/terms, or another agreement      	              *
 * between echoAR, Inc. and you, your company or other organization.       *
-***************************************************************************/
+***************************************************************************//*
 using UnityEngine;
 using System.Collections;
 using UnityEngine.Networking;
@@ -307,11 +307,11 @@ public class LoadGuess : MonoBehaviour
         Debug.Log("Downloading assets...");
 
         // Iterate over all database entries
-        /*foreach (Entry entry in dbObject.getEntries())
+        *//*foreach (Entry entry in dbObject.getEntries())
         {
             DownloadEntryAssets(entry, serverURL);
 
-        }*/
+        }*//*
         int num = Random.Range(0, dbObject.getEntries().Count);
         int i = 0;
         foreach (Entry entry in dbObject.getEntries())
@@ -619,7 +619,7 @@ public class LoadGuess : MonoBehaviour
         WClient.On(WClient.EventType.CONNECTION_LOST.ToString(), (string arg0) => {
             
         });
-        /*WClient.On(WClient.EventType.ADD_ENTRY.ToString(), (string message) => {
+        *//*WClient.On(WClient.EventType.ADD_ENTRY.ToString(), (string message) => {
             // Parse new entry
             Entry entry = ParseEntry(JSON.Parse(message));
             // Download and instantiate content
@@ -644,7 +644,7 @@ public class LoadGuess : MonoBehaviour
                 }
             }
             if (gameObjectToDestroy != null) Destroy(gameObjectToDestroy);
-        });*/
+        });*//*
         WClient.On(WClient.EventType.DATA_POST_ALL.ToString(), (string message) => {
             // Parse data
             string[] messageArray = message.Split('|');
@@ -777,4 +777,4 @@ public class LoadGuess : MonoBehaviour
             Debug.Log("Data update complete!");
         }
     }
-} 
+} */
