@@ -38,7 +38,7 @@ public class Echo3DHologram : MonoBehaviour
 
     [Space]
     [Tooltip("An event that gets called once for the entire set of entries. Contains the database object with the entries.")]
-    public UnityEvent<Database> onQueryLoad = new UnityEvent<Database>();
+    public UnityEvent<Database, string> onQueryLoad = new UnityEvent<Database, string>();
     [Tooltip("An event that gets called once for each entry. Happens after the previous event. Contains the entry object and the query url.")]
     public UnityEvent<Entry, string> perEntry = new UnityEvent<Entry, string>();
 
@@ -74,7 +74,7 @@ public class Echo3DHologram : MonoBehaviour
         }
 
         //Do something with all entries
-        onQueryLoad.Invoke(hologramData);
+        onQueryLoad.Invoke(hologramData, queryURL);
 
         //Do something with each entry
         foreach (Entry entry in hologramData.getEntries())

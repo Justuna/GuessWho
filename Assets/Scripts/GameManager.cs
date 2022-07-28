@@ -1,4 +1,4 @@
-/*using System.Collections.Generic;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -6,8 +6,7 @@ using UnityEngine.EventSystems;
 
 public class GameManager : MonoBehaviour
 {
-    public string apiKey;
-
+    public Transform guessPosition;
     public GameObject panel;
     public GameObject galleryButton;
     public TMP_InputField input;
@@ -23,7 +22,8 @@ public class GameManager : MonoBehaviour
 
     List<string> _names;
     List<string> _properties;
-    GameObject _holo;
+    GameObject _wrapper;
+    Entry _entry;
     int _guesses = 3;
 
     void Awake()
@@ -37,18 +37,38 @@ public class GameManager : MonoBehaviour
             Instance = this;
         }
 
-        GameObject holo = new GameObject("hologram");
-        holo.transform.position = new Vector3(0, 0, 0);
-        LoadGuess echo = holo.AddComponent<LoadGuess>();
-        echo.APIKey = apiKey;
-        echo.Tags = "guesswho";
+        _wrapper = new GameObject("Guess");
+        _wrapper.transform.position = guessPosition.position;
+        _wrapper.AddComponent<RendererGroup>();
     }
 
-    public void Setup(List<string> names, List<string> properties, GameObject holo)
+    public void PickGuess(Database database, string queryURL)
     {
-        _names = names;
-        _properties = properties;
-        _holo = holo;
+        int index = Random.Range(0, database.getEntries().Count);
+        int i = 0;
+        foreach (Entry entry in database.getEntries())
+        {
+            if (i == index)
+            {
+                _entry = entry;
+                Echo3DService.instance.DownloadAndInstantiate(_entry, queryURL, _wrapper);
+                break;
+            }
+            i++;
+        }
+
+        _names = new List<string>();
+        string allNames = ((ModelHologram)_entry.getHologram()).getFilename().Split('.')[0];
+        Debug.Log(allNames);
+        foreach (string name in allNames.Split(' ')) _names.Add(name.Replace('_', ' '));
+
+        _properties = new List<string>();
+        string value;
+        if (_entry.getAdditionalData() != null && _entry.getAdditionalData().TryGetValue("guesswho", out value))
+        {
+            Debug.Log(value);
+            foreach (string prop in value.Split(' ')) _properties.Add(prop.Replace('_', ' '));
+        }
 
         panel.SetActive(true);
         input.gameObject.SetActive(true);
@@ -97,18 +117,20 @@ public class GameManager : MonoBehaviour
         galleryButton.SetActive(false);
         input.gameObject.SetActive(false);
 
-        _holo.GetComponent<GuessModel>().Reveal();
+        _wrapper.GetComponent<RendererGroup>().Display();
 
         if (victory)
         {
             victoryMessage.gameObject.SetActive(true);
             victoryMessage.text = "Congratulations! The answer was: " + _names[0];
         }
-        else {
+        else
+        {
             defeatMessage.gameObject.SetActive(true);
             defeatMessage.text = "Sorry! The answer was: " + _names[0];
         }
-        if (_names.Count > 1) {
+        if (_names.Count > 1)
+        {
             string msg = "AKA: ";
             for (int i = 1; i < _names.Count - 1; i++)
             {
@@ -130,4 +152,3 @@ public class GameManager : MonoBehaviour
         Application.Quit();
     }
 }
-*/

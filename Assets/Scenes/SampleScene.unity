@@ -1411,7 +1411,7 @@ GameObject:
   m_Component:
   - component: {fileID: 615220811}
   - component: {fileID: 615220813}
-  - component: {fileID: 615220812}
+  - component: {fileID: 615220814}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -1435,18 +1435,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &615220812
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 615220809}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e30d73ec167d17f479baa10586ee09d7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &615220813
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1468,13 +1456,10 @@ MonoBehaviour:
   customQuery: data=guesswho
   onQueryLoad:
     m_PersistentCalls:
-      m_Calls: []
-  perEntry:
-    m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 615220812}
-        m_TargetAssemblyTypeName: HologramLoader, echo3d.echounitysdk
-        m_MethodName: LoadHologram
+      - m_Target: {fileID: 615220814}
+        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+        m_MethodName: PickGuess
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1484,7 +1469,35 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  perEntry:
+    m_PersistentCalls:
+      m_Calls: []
   queryURL: 
+--- !u!114 &615220814
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 615220809}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e5d099754320ab43a57bad37889bc35, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  guessPosition: {fileID: 709790342}
+  panel: {fileID: 840355593}
+  galleryButton: {fileID: 1611810302}
+  input: {fileID: 895795607}
+  hintPanels:
+  - {fileID: 579399366}
+  - {fileID: 1286023071}
+  - {fileID: 1039204531}
+  victoryMessage: {fileID: 1090723061}
+  defeatMessage: {fileID: 369392481}
+  extraMessage: {fileID: 1097929162}
+  correctHint: {r: 0.47929505, g: 1, b: 0.3443396, a: 1}
+  incorrectHint: {r: 1, g: 0.28773582, b: 0.28773582, a: 1}
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -1579,6 +1592,37 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+--- !u!1 &709790341
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 709790342}
+  m_Layer: 0
+  m_Name: GuessPosition
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &709790342
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 709790341}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 9
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &722158075
 GameObject:
   m_ObjectHideFlags: 0
@@ -2131,7 +2175,7 @@ MonoBehaviour:
   m_OnEndEdit:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 615220814}
         m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
         m_MethodName: Guess
         m_Mode: 0

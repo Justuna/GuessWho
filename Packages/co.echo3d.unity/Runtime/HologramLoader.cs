@@ -7,7 +7,7 @@ public class HologramLoader : MonoBehaviour
         Echo3DService.instance.DownloadAndInstantiate(entry, queryURL, this.gameObject);
     }
 
-    public void EntryCount(Database database)
+    public void EntryCount(Database database, string queryURL)
     {
         Debug.Log("Found " + database.getEntries().Count + " entries");
     }
