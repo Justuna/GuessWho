@@ -1,11 +1,11 @@
-/*using System.Collections.Generic;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class GalleryManager : MonoBehaviour
 {
     public static GalleryManager Instance { get; private set; }
-    
+
     public Transform[] currPage;
     public Transform[] prevPage;
     public Transform[] nextPage;
@@ -19,10 +19,9 @@ public class GalleryManager : MonoBehaviour
     int _page = 1;
     bool _movingUp = false;
     bool _movingDown = false;
-    [SerializeField]
     float _t = 0;
 
-    List<GalleryModel> _models = new List<GalleryModel>();
+    List<RendererGroup> _models = new List<RendererGroup>();
 
     void Awake()
     {
@@ -38,24 +37,45 @@ public class GalleryManager : MonoBehaviour
         next.interactable = false;
     }
 
-    public void AddModel(GalleryModel model)
+    public void AddModel(Entry entry, string queryURL)
     {
         int index = _models.Count;
         int position = index % 4;
         int page = (index / 4) + 1;
 
+        GameObject wrapper = new GameObject("gallery wrapper " + index);
+        
+        GalleryTooltip tooltip = wrapper.AddComponent<GalleryTooltip>();
+        tooltip.names = new List<string>();
+        string allNames = ((ModelHologram)entry.getHologram()).getFilename().Split('.')[0];
+        Debug.Log(allNames);
+        foreach (string name in allNames.Split(' ')) tooltip.names.Add(name.Replace('_', ' '));
+
+        tooltip.properties = new List<string>();
+        string value;
+        if (entry.getAdditionalData() != null && entry.getAdditionalData().TryGetValue("guesswho", out value))
+        {
+            Debug.Log(value);
+            foreach (string prop in value.Split(' ')) tooltip.properties.Add(prop.Replace('_', ' '));
+        }
+
+        wrapper.AddComponent<ToolTipDetector3D>();
+
+        Echo3DService.instance.DownloadAndInstantiate(entry, queryURL, wrapper);
+
+        RendererGroup model = wrapper.AddComponent<RendererGroup>();
+
         if (!_models.Contains(model))
         {
             _models.Add(model);
-            Transform wrapper = model.transform.parent;
 
             if (page > _page)
             {
-                wrapper.position = nextPage[position].position;
+                wrapper.transform.position = nextPage[position].position;
             }
             else
             {
-                wrapper.position = currPage[position].position;
+                wrapper.transform.position = currPage[position].position;
 
                 model.Display();
             }
@@ -77,7 +97,7 @@ public class GalleryManager : MonoBehaviour
         next.interactable = true;
         if (_page == 2) prev.interactable = false;
 
-        
+
     }
 
     public void NextPage()
@@ -110,20 +130,20 @@ public class GalleryManager : MonoBehaviour
             {
                 if (_movingUp)
                 {
-                    
-                    _models[currIndex + i].transform.parent.transform.position = prevPage[i].position;
+
+                    _models[currIndex + i].transform.position = prevPage[i].position;
                     _models[currIndex + i].Hide();
                     if (nextIndex + i < _models.Count)
                     {
-                        _models[nextIndex + i].transform.parent.transform.position = currPage[i].position;
+                        _models[nextIndex + i].transform.position = currPage[i].position;
                     }
                 }
                 else if (_movingDown)
                 {
-                    _models[prevIndex + i].transform.parent.transform.position = currPage[i].position;
+                    _models[prevIndex + i].transform.position = currPage[i].position;
                     if (currIndex + i < _models.Count)
                     {
-                        _models[currIndex + i].transform.parent.transform.position = nextPage[i].position;
+                        _models[currIndex + i].transform.position = nextPage[i].position;
                         _models[currIndex + i].Hide();
                     }
                 }
@@ -149,22 +169,21 @@ public class GalleryManager : MonoBehaviour
             {
                 if (_movingUp)
                 {
-                    _models[currIndex + i].transform.parent.transform.position = Vector3.Lerp(currPage[i].position, prevPage[i].position, t);
+                    _models[currIndex + i].transform.position = Vector3.Lerp(currPage[i].position, prevPage[i].position, t);
                     if (nextIndex + i < _models.Count)
                     {
-                        _models[nextIndex + i].transform.parent.transform.position = Vector3.Lerp(nextPage[i].position, currPage[i].position, t);
+                        _models[nextIndex + i].transform.position = Vector3.Lerp(nextPage[i].position, currPage[i].position, t);
                     }
                 }
                 else if (_movingDown)
                 {
-                    _models[prevIndex + i].transform.parent.transform.position = Vector3.Lerp(prevPage[i].position, currPage[i].position, t);
+                    _models[prevIndex + i].transform.position = Vector3.Lerp(prevPage[i].position, currPage[i].position, t);
                     if (currIndex + i < _models.Count)
                     {
-                        _models[currIndex + i].transform.parent.transform.position = Vector3.Lerp(currPage[i].position, nextPage[i].position, t);
+                        _models[currIndex + i].transform.position = Vector3.Lerp(currPage[i].position, nextPage[i].position, t);
                     }
                 }
             }
         }
     }
 }
-*/
